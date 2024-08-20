@@ -7,6 +7,7 @@ router.get('/:id', usuarioController.listarDadosPorId);
 router.post('/', usuarioController.criarDados);
 router.put('/:id', usuarioController.atualizarDados);
 router.delete('/:id', usuarioController.deleteDados);
+router.post('/', usuarioController.loginUsuario)
 
 
 module.exports = router;

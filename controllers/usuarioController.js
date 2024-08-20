@@ -68,9 +68,32 @@ const deleteDados = async (req, res) => {
     res.status(204).json({
         message: `Dado excluído com sucesso`
     });
+};
 
+const loginUsuario = async (req, res) => {
+    const { email, senha } = req.body;
 
-}
+    const dados = await usuario.findOne({ where: { email } });
+
+    if(!dados) {
+        return res.status(404).json({ message: 'Credenciais incorretas' });
+    }
+
+    const converterSenha = await bcrypt.compare(senha, dados.senha);
+    if(!converterSenha) {
+        return res.status(404).json({message: 'Credenciais incorretas'})
+    }
+
+    const token = jwt.sign(
+        {id: dados.id, email: dados.email, role: dados.role},
+        process.env.JWT_SECRET,
+        {
+            expiresIn: "1d",
+        }
+    );
+
+    res.status(200).json({message: `Usuário logado com sucesso`, token})
+};
 
 
 module.exports = {
@@ -78,5 +101,6 @@ module.exports = {
     listarDadosPorId,
     criarDados,
     atualizarDados,
-    deleteDados
+    deleteDados,
+    loginUsuario
 }
