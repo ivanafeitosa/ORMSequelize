@@ -65,9 +65,7 @@ const deleteDados = async (req, res) => {
 
     await dados.destroy();
 
-    res.status(204).json({
-        message: `Dado excluído com sucesso`
-    });
+    res.status(204).end();
 };
 
 const loginUsuario = async (req, res) => {

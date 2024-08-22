@@ -67,9 +67,7 @@ const excluirEmprestimo = async (req, res) => {
 
     await dados.destroy();
 
-    res.status(204).json({
-        message: `Empréstimo excluído com sucesso`
-    });
+    res.status(204).end();
 }
 
 module.exports = {

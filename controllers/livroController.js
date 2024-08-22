@@ -61,9 +61,7 @@ const deleteLivros = async (req, res) => {
 
     await dados.destroy();
 
-    res.status(204).json({
-        message: `Livro excluído com sucesso`
-    });
+    res.status(204).end();
 };
 
 
